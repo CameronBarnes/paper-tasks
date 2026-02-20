@@ -9,6 +9,10 @@ pub struct Cli {
     #[arg(short, long, value_name = "PATH")]
     pub config_dir: Option<PathBuf>,
 
+    /// Path for the sqlite db file
+    #[arg(short, long)]
+    pub database_path: Option<PathBuf>,
+
     #[command(subcommand)]
     pub command: Option<Commands>,
 }

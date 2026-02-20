@@ -1,6 +1,7 @@
 mod app;
 mod cli;
 mod config;
+mod db;
 
 use std::fs::create_dir_all;
 use std::io::Write;
@@ -32,8 +33,9 @@ fn setup(args: &Cli) -> Result<Config> {
     let config_data: ConfigData = toml::from_str(&config_data)?;
 
     let db_path = config_dir.join(
-        config_data
-            .db_path
+        args.database_path
+            .clone()
+            .or(config_data.db_path)
             .unwrap_or_else(|| PathBuf::from("database.db")),
     );
 
